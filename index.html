@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Monitoring Device - Real-time Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="ocean-background">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        
+        <div class="bubble bubble1"></div>
+        <div class="bubble bubble2"></div>
+        <div class="bubble bubble3"></div>
+        <div class="bubble bubble4"></div>
+        <div class="bubble bubble5"></div>
+        <div class="bubble bubble6"></div>
+        <div class="bubble bubble7"></div>
+        <div class="bubble bubble8"></div>
+        
+        <div class="fish fish1">🐟</div>
+        <div class="fish fish2">🐠</div>
+        <div class="fish fish3">🦑</div>
+        <div class="seaweed seaweed1"></div>
+        <div class="seaweed seaweed2"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <img src="logo.png" alt="SafePond Logo" class="logo">
+            </div>
+            <div class="header-content">
+                <h1 class="title">SafePond AI</h1>
+                <p class="subtitle">Real-time Water Quality Monitoring System</p>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot" id="connectionStatus"></div>
+                <span id="statusText">Initializing...</span>
+            </div>
+            <a href="contributors.html" class="contributors-link">Contributors</a>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <main class="dashboard">
+            <!-- Parameter Cards -->
+            <div class="parameters-grid">
+                <!-- Water Level -->
+                <div class="parameter-card card-water">
+                    <div class="card-header">
+                        <h2 class="parameter-title">Water Level</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="gauge-container">
+                            <svg class="gauge" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="90" class="gauge-background"/>
+                                <circle cx="100" cy="100" r="90" class="gauge-progress" id="waterLevelGauge"/>
+                                <text x="100" y="100" class="gauge-text" id="waterLevelText">0%</text>
+                            </svg>
+                        </div>
+                        <div class="parameter-status">
+                            <p class="status-label">Percentage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TDS -->
+                <div class="parameter-card card-tds">
+                    <div class="card-header">
+                        <h2 class="parameter-title">TDS</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="value-display">
+                            <span class="value" id="tdsValue">0</span>
+                            <span class="unit">ppm</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="tdsProgress"></div>
+                        </div>
+                        <p class="status-label">Total Dissolved Solids</p>
+                    </div>
+                </div>
+
+                <!-- Turbidity -->
+                <div class="parameter-card card-turbidity">
+                    <div class="card-header">
+                        <h2 class="parameter-title">Turbidity</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="value-display">
+                            <span class="value" id="turbidityValue">0</span>
+                            <span class="unit">NTU</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="turbidityProgress"></div>
+                        </div>
+                        <p class="status-label">Nephelometric Turbidity</p>
+                    </div>
+                </div>
+
+                <!-- Temperature -->
+                <div class="parameter-card card-temperature">
+                    <div class="card-header">
+                        <h2 class="parameter-title">Temperature</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="value-display">
+                            <span class="value" id="temperatureValue">0</span>
+                            <span class="unit">°C</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="temperatureProgress"></div>
+                        </div>
+                        <p class="status-label">Water Temperature</p>
+                    </div>
+                </div>
+
+                <!-- pH Level -->
+                <div class="parameter-card card-ph">
+                    <div class="card-header">
+                        <h2 class="parameter-title">pH Level</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="value-display">
+                            <span class="value" id="phValue">0</span>
+                            <span class="unit">pH</span>
+                        </div>
+                        <div class="ph-scale">
+                            <div class="ph-bar" id="phBar"></div>
+                        </div>
+                        <p class="status-label" id="phStatus">Neutral</p>
+                    </div>
+                </div>
+
+                <!-- WQI -->
+                <div class="parameter-card card-wqi">
+                    <div class="card-header">
+                        <h2 class="parameter-title">Water Quality Index</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="wqi-display">
+                            <svg class="wqi-circle" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="50" class="wqi-background"/>
+                                <circle cx="60" cy="60" r="50" class="wqi-fill" id="wqiFill"/>
+                                <text x="60" y="70" class="wqi-text" id="wqiValue">0</text>
+                            </svg>
+                        </div>
+                        <p class="status-label">Water Quality Index</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggestion Card -->
+            <div class="suggestion-card">
+                <div class="suggestion-header">
+                    <h3>Suggestions & Recommendations</h3>
+                </div>
+                <div class="suggestion-body">
+                    <p id="suggestionText">Initializing system...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Last Updated: <span id="lastUpdate">--:--:--</span></p>
+            <p>Device ID: ESP32_WATER_01</p>
+            <p>&copy; SafePond_Ai | Developed by Kazi Abir Hasan</p>
+        </footer>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        console.log('🌊 SafePond AI - Firebase REST API Version');
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            projectId: "sensor-reading-baea8",
+            databaseURL: "https://sensor-reading-baea8-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        // Sensor Data
+        const sensorData = {
+            water_level: 0,
+            tds: 0,
+            turbidity: 0,
+            temperature: 0,
+            ph: 0,
+            wqi: 0
+        };
+
+        let firebaseAvailable = false;
+
+        // ====== Initialize ====== //
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Dashboard loaded');
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Try to fetch from Firebase
+            fetchFromFirebase();
+            
+            // Also try periodic fetches
+            setInterval(fetchFromFirebase, 3000);
+        });
+
+        // ====== Fetch Data from Firebase REST API ====== //
+        function fetchFromFirebase() {
+            const url = `${firebaseConfig.databaseURL}/sensors.json`;
+            
+            console.log('📡 Attempting to fetch from Firebase:', url);
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('✅ Firebase data received:', data);
+                
+                if (data) {
+                    // Update sensor data
+                    sensorData.water_level = data.water_level ?? sensorData.water_level;
+                    sensorData.tds = data.tds ?? sensorData.tds;
+                    sensorData.turbidity = data.turbidity ?? sensorData.turbidity;
+                    sensorData.temperature = data.temperature ?? sensorData.temperature;
+                    sensorData.ph = data.ph ?? sensorData.ph;
+                    sensorData.wqi = data.wqi ?? calculateWQI(data);
+
+                    firebaseAvailable = true;
+                    updateAllDisplays();
+                    setConnectionStatus(true, 'Connected to Firebase');
+                    updateFirebaseStatus(true, 'Connected to Firebase REST API');
+                    
+                    console.log('📊 Data updated from Firebase');
+                } else {
+                    console.log('⚠️ No data in Firebase yet');
+                    updateFirebaseStatus(false, '⚠️ No data available (ESP32 may not have sent anything)');
+                }
+            })
+            .catch(error => {
+                console.error('❌ Firebase fetch error:', error);
+                
+                if (!firebaseAvailable) {
+                    console.log('📌 Firebase unavailable, using simulated data');
+                    if (sensorData.water_level === 0) {
+                        // Initialize with default data
+                        sensorData.water_level = 50;
+                        sensorData.tds = 200;
+                        sensorData.turbidity = 120;
+                        sensorData.temperature = 25.5;
+                        sensorData.ph = 7.2;
+                        updateAllDisplays();
+                    }
+                    updateFirebaseStatus(false, '❌ Firebase unavailable - Using simulated data');
+                    setConnectionStatus(true, 'SIMULATION MODE');
+                    simulateData();
+                }
+            });
+        }
+
+        // ====== Simulate Data Changes ====== //
+        function simulateData() {
+            sensorData.water_level += (Math.random() - 0.5) * 3;
+            sensorData.tds += (Math.random() - 0.5) * 8;
+            sensorData.turbidity += (Math.random() - 0.5) * 5;
+            sensorData.temperature += (Math.random() - 0.5) * 0.15;
+            sensorData.ph += (Math.random() - 0.5) * 0.08;
+
+            // Constrain values
+            sensorData.water_level = Math.max(20, Math.min(85, sensorData.water_level));
+            sensorData.tds = Math.max(150, Math.min(500, sensorData.tds));
+            sensorData.turbidity = Math.max(80, Math.min(300, sensorData.turbidity));
+            sensorData.temperature = Math.max(15, Math.min(35, sensorData.temperature));
+            sensorData.ph = Math.max(6.0, Math.min(8.5, sensorData.ph));
+
+            updateAllDisplays();
+        }
+
+        // ====== Update All Displays ====== //
+        function updateAllDisplays() {
+            updateWaterLevel();
+            updateTDS();
+            updateTurbidity();
+            updateTemperature();
+            updatePH();
+            updateWQI();
+            generateSuggestions();
+        }
+
+        // ====== Water Level ====== //
+        function updateWaterLevel() {
+            const value = sensorData.water_level;
+            const circumference = 2 * Math.PI * 90;
+            const offset = circumference * (1 - value / 100);
+
+            const element = document.getElementById('waterLevelText');
+            if (element) element.textContent = `${Math.round(value)}%`;
+            
+            const gauge = document.getElementById('waterLevelGauge');
+            if (gauge) gauge.style.strokeDashoffset = offset;
+        }
+
+        // ====== TDS ====== //
+        function updateTDS() {
+            const value = sensorData.tds;
+            const percentage = Math.min((value / 1000) * 100, 100);
+
+            const element = document.getElementById('tdsValue');
+            if (element) element.textContent = Math.round(value);
+            
+            const progress = document.getElementById('tdsProgress');
+            if (progress) progress.style.width = percentage + '%';
+        }
+
+        // ====== Turbidity ====== //
+        function updateTurbidity() {
+            const value = sensorData.turbidity;
+            const percentage = Math.min((value / 3000) * 100, 100);
+
+            const element = document.getElementById('turbidityValue');
+            if (element) element.textContent = Math.round(value);
+            
+            const progress = document.getElementById('turbidityProgress');
+            if (progress) progress.style.width = percentage + '%';
+        }
+
+        // ====== Temperature ====== //
+        function updateTemperature() {
+            const value = sensorData.temperature;
+            const percentage = Math.min(((value + 10) / 40) * 100, 100);
+
+            const element = document.getElementById('temperatureValue');
+            if (element) element.textContent = value.toFixed(1);
+            
+            const progress = document.getElementById('temperatureProgress');
+            if (progress) progress.style.width = percentage + '%';
+        }
+
+        // ====== pH ====== //
+        function updatePH() {
+            const value = sensorData.ph;
+            const phPercentage = (value / 14) * 100;
+
+            const element = document.getElementById('phValue');
+            if (element) element.textContent = value.toFixed(1);
+            
+            const bar = document.getElementById('phBar');
+            if (bar) bar.style.width = phPercentage + '%';
+
+            let phStatus = 'Neutral';
+            if (value < 5) phStatus = '🔴 Very Acidic';
+            else if (value < 6) phStatus = '🟠 Acidic';
+            else if (value < 7) phStatus = '🟡 Slightly Acidic';
+            else if (value === 7) phStatus = '🟢 Neutral';
+            else if (value < 8) phStatus = '🟡 Slightly Basic';
+            else if (value < 9) phStatus = '🟠 Basic';
+            else phStatus = '🔴 Very Basic';
+
+            const statusElement = document.getElementById('phStatus');
+            if (statusElement) statusElement.textContent = phStatus;
+        }
+
+        // ====== WQI ====== //
+        function updateWQI() {
+            const value = sensorData.wqi;
+            const circumference = 2 * Math.PI * 50;
+            const offset = circumference * (1 - value / 100);
+
+            const element = document.getElementById('wqiValue');
+            if (element) element.textContent = Math.round(value);
+            
+            const fill = document.getElementById('wqiFill');
+            if (fill) fill.style.strokeDashoffset = offset;
+        }
+
+        // ====== Calculate WQI ====== //
+        function calculateWQI(data) {
+            const tdsScore = Math.max(0, 100 - (data.tds ?? 0) / 10);
+            const turbidityScore = Math.max(0, 100 - (data.turbidity ?? 0) / 30);
+            
+            const ph = data.ph ?? 7;
+            let phScore = 100;
+            if (ph < 6.5 || ph > 8.5) {
+                phScore = Math.max(0, 100 - Math.abs(ph - 7) * 10);
+            }
+            
+            const temp = data.temperature ?? 25;
+            let tempScore = 100;
+            if (temp < 10 || temp > 35) {
+                tempScore = Math.max(0, 100 - Math.abs(temp - 25) / 0.5);
+            }
+
+            return Math.max(0, Math.min(100, tdsScore * 0.3 + turbidityScore * 0.3 + phScore * 0.2 + tempScore * 0.2));
+        }
+
+        // ====== Suggestions ====== //
+        function generateSuggestions() {
+            let suggestions = [];
+
+            if (sensorData.water_level < 30) suggestions.push('⚠️ Water level is low.');
+            else if (sensorData.water_level > 80) suggestions.push('⚠️ Water level is high.');
+            else suggestions.push('✅ Water level is optimal.');
+
+            if (sensorData.tds > 500) suggestions.push('🔴 High TDS.');
+            else if (sensorData.tds > 300) suggestions.push('🟡 TDS is moderately high.');
+            else suggestions.push('✅ TDS is healthy.');
+
+            if (sensorData.turbidity > 1000) suggestions.push('🔴 High turbidity.');
+            else if (sensorData.turbidity > 500) suggestions.push('🟡 Turbidity is elevated.');
+            else suggestions.push('✅ Water clarity is good.');
+
+            const ph = sensorData.ph;
+            if (ph < 6.5 || ph > 8.5) suggestions.push(`⚠️ pH (${ph.toFixed(1)}) out of range.`);
+            else suggestions.push(`✅ pH (${ph.toFixed(1)}) is optimal.`);
+
+            if (sensorData.temperature < 15) suggestions.push('❄️ Temperature is cold.');
+            else if (sensorData.temperature > 32) suggestions.push('🔥 Temperature is high.');
+            else suggestions.push('✅ Temperature is ideal.');
+
+            sensorData.wqi = calculateWQI(sensorData);
+            if (sensorData.wqi > 80) suggestions.push('⭐ Excellent quality!');
+            else if (sensorData.wqi > 60) suggestions.push('👍 Good quality.');
+            else if (sensorData.wqi > 40) suggestions.push('⚠️ Fair quality.');
+            else suggestions.push('🔴 Poor quality.');
+
+            const element = document.getElementById('suggestionText');
+            if (element) element.textContent = suggestions.join(' | ');
+        }
+
+        // ====== Status ====== //
+        function setConnectionStatus(connected, text) {
+            const dot = document.getElementById('connectionStatus');
+            const status = document.getElementById('statusText');
+            if (connected) {
+                if (dot) dot.classList.add('connected');
+                if (status) status.textContent = text;
+            }
+        }
+
+        function updateFirebaseStatus(connected, text) {
+            const status = document.getElementById('firebaseStatus');
+            const statusText = document.getElementById('firebaseStatusText');
+            if (status) {
+                if (connected) {
+                    status.classList.add('connected');
+                } else {
+                    status.classList.remove('connected');
+                }
+            }
+            if (statusText) statusText.textContent = text;
+        }
+
+        // ====== Clock ====== //
+        function updateClock() {
+            const element = document.getElementById('lastUpdate');
+            if (element) element.textContent = new Date().toLocaleTimeString();
+        }
+    </script>
+</body>
+</html>

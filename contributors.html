@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributors - SafePond AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1929 0%, #1a237e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ocean Background Animations */
+        .ocean-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #0a1929 0%, #1a237e 50%, #0d47a1 100%);
+        }
+
+        /* Waves */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 150px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgba(30, 136, 229, 0.3)"/></svg>') repeat-x;
+            animation: wave 15s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            bottom: 10px;
+            opacity: 0.5;
+            animation: wave 20s linear infinite reverse;
+        }
+
+        .wave:nth-child(3) {
+            bottom: 20px;
+            opacity: 0.3;
+            animation: wave 25s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Bubbles */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(30, 212, 255, 0.4));
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: rise linear infinite;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .bubble1 { width: 40px; height: 40px; left: 10%; animation-duration: 8s; animation-delay: 0s; }
+        .bubble2 { width: 20px; height: 20px; left: 20%; animation-duration: 10s; animation-delay: 2s; }
+        .bubble3 { width: 30px; height: 30px; left: 35%; animation-duration: 12s; animation-delay: 4s; }
+        .bubble4 { width: 25px; height: 25px; left: 50%; animation-duration: 9s; animation-delay: 1s; }
+        .bubble5 { width: 35px; height: 35px; left: 65%; animation-duration: 11s; animation-delay: 3s; }
+        .bubble6 { width: 15px; height: 15px; left: 75%; animation-duration: 13s; animation-delay: 5s; }
+        .bubble7 { width: 28px; height: 28px; left: 85%; animation-duration: 10s; animation-delay: 2.5s; }
+        .bubble8 { width: 22px; height: 22px; left: 95%; animation-duration: 14s; animation-delay: 6s; }
+
+        @keyframes rise {
+            0% { bottom: -100px; opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { bottom: 110%; opacity: 0; }
+        }
+
+        /* Fish */
+        .fish {
+            position: absolute;
+            font-size: 30px;
+            animation: swim 20s linear infinite;
+        }
+
+        .fish1 { top: 20%; animation-duration: 25s; animation-delay: 0s; }
+        .fish2 { top: 50%; animation-duration: 30s; animation-delay: 5s; }
+        .fish3 { top: 70%; animation-duration: 35s; animation-delay: 10s; }
+
+        @keyframes swim {
+            0% { left: -100px; transform: scaleX(1); }
+            48% { transform: scaleX(1); }
+            50% { left: 110%; transform: scaleX(-1); }
+            98% { transform: scaleX(-1); }
+            100% { left: -100px; transform: scaleX(1); }
+        }
+
+        /* Seaweed */
+        .seaweed {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 150px;
+            background: linear-gradient(to top, #1b5e20, #4caf50);
+            border-radius: 50% 50% 0 0;
+            animation: sway 4s ease-in-out infinite;
+            transform-origin: bottom;
+        }
+
+        .seaweed1 { left: 15%; animation-delay: 0s; }
+        .seaweed2 { left: 80%; animation-delay: 2s; height: 120px; }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .contributors-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .contributors-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .contributors-header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #1ed4ff, #00bfff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(30, 212, 255, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(30, 212, 255, 0.8)); }
+        }
+
+        .contributors-header p {
+            font-size: 1.1em;
+            color: #81d4ff;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .contributors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 900px;
+            margin-bottom: 40px;
+        }
+
+        .contributor-card {
+            background: linear-gradient(135deg, rgba(21, 101, 192, 0.5), rgba(30, 136, 229, 0.3));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(129, 212, 255, 0.5);
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contributor-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(129, 212, 255, 0.9);
+            box-shadow: 0 15px 45px rgba(30, 212, 255, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .contributor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(30, 212, 255, 0.15), transparent);
+            pointer-events: none;
+        }
+
+        .contributor-image-section {
+            width: 100%;
+            padding: 40px 40px 20px 40px;
+            display: flex;
+            justify-content: center;
+            background: rgba(160, 160, 160, 0.3);
+        }
+
+        .contributor-details-section {
+            flex: 1;
+            padding: 30px 40px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            background: rgba(180, 180, 180, 0.2);
+            width: 100%;
+        }
+
+        .contributor-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .contributor-avatar.avatar-1 {
+            background-image: url('Abir_Hasan.jpeg');
+        }
+
+        .contributor-avatar.avatar-2 {
+            background-image: url('Piash_Mahmud.jpg');
+        }
+
+        .contributor-name {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .contributor-role {
+            font-size: 1em;
+            color: #81d4ff;
+            font-weight: 500;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .contributor-description {
+            font-size: 0.9em;
+            color: #e1f5fe;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .contributor-contact {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-link {
+            padding: 8px 20px;
+            background: rgba(30, 212, 255, 0.2);
+            border: 1px solid rgba(129, 212, 255, 0.5);
+            border-radius: 20px;
+            color: #81d4ff;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: rgba(30, 212, 255, 0.4);
+            border-color: rgba(129, 212, 255, 0.9);
+            box-shadow: 0 0 15px rgba(30, 212, 255, 0.3);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            padding: 12px 25px;
+            background: rgba(21, 101, 192, 0.5);
+            border: 2px solid rgba(129, 212, 255, 0.6);
+            border-radius: 50px;
+            color: #81d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            background: rgba(21, 101, 192, 0.8);
+            border-color: rgba(129, 212, 255, 0.9);
+            box-shadow: 0 0 20px rgba(30, 212, 255, 0.4);
+        }
+
+        .project-info {
+            background: linear-gradient(135deg, rgba(21, 101, 192, 0.5), rgba(30, 136, 229, 0.3));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(129, 212, 255, 0.5);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-left: 5px solid #ffb300;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255, 179, 0, 0.15), transparent);
+            pointer-events: none;
+        }
+
+        .project-info h2 {
+            font-size: 1.5em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-info p {
+            font-size: 0.95em;
+            color: #e1f5fe;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .contributors-container {
+                padding: 20px;
+            }
+
+            .contributors-header h1 {
+                font-size: 2em;
+            }
+
+            .contributors-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .back-button {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 40px;
+            }
+
+            .contributor-card {
+                padding: 0;
+            }
+
+            .contributor-image-section {
+                padding: 30px 30px 15px 30px;
+            }
+
+            .contributor-details-section {
+                padding: 20px 30px 30px 30px;
+            }
+
+            .contributor-avatar {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="ocean-background">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        
+        <div class="bubble bubble1"></div>
+        <div class="bubble bubble2"></div>
+        <div class="bubble bubble3"></div>
+        <div class="bubble bubble4"></div>
+        <div class="bubble bubble5"></div>
+        <div class="bubble bubble6"></div>
+        <div class="bubble bubble7"></div>
+        <div class="bubble bubble8"></div>
+        
+        <div class="fish fish1">🐟</div>
+        <div class="fish fish2">🐠</div>
+        <div class="fish fish3">🦑</div>
+        <div class="seaweed seaweed1"></div>
+        <div class="seaweed seaweed2"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Dashboard</a>
+
+        <div class="contributors-container">
+            <div class="contributors-header">
+                <h1>Meet Our Team</h1>
+                <p>The brilliant minds behind SafePond AI</p>
+            </div>
+
+            <div class="contributors-grid">
+                <!-- Contributor 1 -->
+                <div class="contributor-card">
+                    <div class="contributor-image-section">
+                        <div class="contributor-avatar avatar-1"></div>
+                    </div>
+                    <div class="contributor-details-section">
+                        <div>
+                            <h3 class="contributor-name">Kazi Abir Hasan</h3>
+                            <p class="contributor-role">IoT & Web Developer</p>
+                            <p class="contributor-description">
+                                Designed and developed the entire SafePond AI website, real-time database integration, firmware development and comprehensive water quality monitoring system.
+                            </p>
+                        </div>
+                        <div class="contributor-contact">
+                            <a href="mailto:hasan23105101213@diu.edu.bd" class="contact-link">Email</a>
+                            <a href="https://github.com/abir930" class="contact-link">GitHub</a>
+                            <a href="https://www.linkedin.com/in/abir-hasan-mahin-552a61374/" class="contact-link">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contributor 2 -->
+                <div class="contributor-card">
+                    <div class="contributor-image-section">
+                        <div class="contributor-avatar avatar-2"></div>
+                    </div>
+                    <div class="contributor-details-section">
+                        <div>
+                            <h3 class="contributor-name">Piash Mahmud</h3>
+                            <p class="contributor-role">IoT & Hardware Engineer</p>
+                            <p class="contributor-description">
+                                Developed the ESP32 sensor integration, calculations, and hardware architecture for real-time water quality monitoring and real-time data transmission.
+                            </p>
+                        </div>
+                        <div class="contributor-contact">
+                            <a href="mailto:piash@example.com" class="contact-link">Email</a>
+                            <a href="#" class="contact-link">GitHub</a>
+                            <a href="#" class="contact-link">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-info">
+                <h2>About SafePond AI</h2>
+                <p>
+                    SafePond AI is a cutting-edge water quality monitoring system that integrates modern IoT technology with advanced data 
+                    visualization. Our platform provides real-time tracking of seven essential water parameters, including TDS, turbidity, 
+                    temperature, pH level, and water level. Using Firebase Realtime Database for seamless cloud connectivity, SafePond AI 
+                    delivers instant updates and intelligent suggestions based on current water conditions.<br>
+
+                    Designed with fully responsive principles, the system works flawlessly across all devices—desktop, tablet, and mobile.<br>
+
+                    Looking ahead, we aim to integrate advanced AI capabilities that will offer industrial-grade performance at a significantly
+                     lower cost, making smart water monitoring more accessible than ever.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

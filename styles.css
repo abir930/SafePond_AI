@@ -1,0 +1,712 @@
+/* ====== Global Styles ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0a1428 0%, #0d47a1 50%, #1565c0 100%);
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ====== Ocean Background Animation ====== */
+.ocean-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Waves */
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.1)"/></svg>') repeat-x;
+    background-size: 600px 100px;
+    animation: wave 15s linear infinite;
+    opacity: 0.7;
+}
+
+.wave:nth-child(2) {
+    bottom: 10px;
+    animation: wave 10s linear infinite reverse;
+    opacity: 0.5;
+}
+
+.wave:nth-child(3) {
+    bottom: 20px;
+    animation: wave 8s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(600px);
+    }
+}
+
+/* Bubbles */
+.bubble {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
+    animation: float 6s infinite ease-in;
+}
+
+.bubble1 { left: 10%; animation-delay: 0s; width: 15px; height: 15px; }
+.bubble2 { left: 20%; animation-delay: 1s; width: 25px; height: 25px; }
+.bubble3 { left: 30%; animation-delay: 2s; width: 18px; height: 18px; }
+.bubble4 { left: 40%; animation-delay: 0.5s; width: 22px; height: 22px; }
+.bubble5 { left: 50%; animation-delay: 1.5s; width: 16px; height: 16px; }
+.bubble6 { left: 60%; animation-delay: 2.5s; width: 20px; height: 20px; }
+.bubble7 { left: 75%; animation-delay: 0.8s; width: 24px; height: 24px; }
+.bubble8 { left: 90%; animation-delay: 1.8s; width: 19px; height: 19px; }
+
+@keyframes float {
+    0% {
+        bottom: -50px;
+        opacity: 0;
+        transform: translateX(0);
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        bottom: 100vh;
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+/* Floating Fish */
+.fish {
+    position: absolute;
+    font-size: 40px;
+    animation: swim 20s infinite ease-in-out;
+    z-index: 0;
+}
+
+.fish1 {
+    top: 20%;
+    animation-delay: 0s;
+}
+
+.fish2 {
+    top: 50%;
+    animation-delay: 5s;
+    font-size: 35px;
+}
+
+.fish3 {
+    top: 70%;
+    animation-delay: 10s;
+    font-size: 45px;
+}
+
+@keyframes swim {
+    0% {
+        left: -50px;
+        transform: scaleX(1);
+    }
+    50% {
+        transform: scaleX(-1);
+    }
+    100% {
+        left: 100vw;
+        transform: scaleX(1);
+    }
+}
+
+/* Seaweed */
+.seaweed {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 300px;
+    background: linear-gradient(180deg, transparent, rgba(34, 139, 34, 0.3) 20%, rgba(34, 139, 34, 0.5) 50%, rgba(34, 139, 34, 0.3) 80%);
+    clip-path: polygon(20% 0%, 50% 2%, 80% 0%, 75% 25%, 85% 50%, 75% 75%, 80% 100%, 50% 98%, 20% 100%, 25% 75%, 15% 50%, 25% 25%);
+    opacity: 0.6;
+    animation: sway 4s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+.seaweed1 {
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.seaweed2 {
+    right: 20%;
+    animation-delay: 1s;
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+/* ====== Container & Layout ====== */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ====== Header ====== */
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px 20px;
+    background: rgba(15, 71, 161, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 2px solid rgba(129, 212, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 15px rgba(30, 212, 255, 0.4));
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.title {
+    font-size: 3em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1ed4ff, #00bfff, #0099ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(30, 212, 255, 0.4);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 30px rgba(30, 212, 255, 0.4);
+    }
+    50% {
+        text-shadow: 0 0 50px rgba(30, 212, 255, 0.7);
+    }
+}
+
+.subtitle {
+    font-size: 1.1em;
+    color: #81d4ff;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* Status Indicator */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    background: rgba(0, 50, 100, 0.7);
+    border-radius: 50px;
+    border: 2px solid rgba(100, 200, 255, 0.5);
+}
+
+.status-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ff4444;
+    animation: blink 1.5s infinite;
+    box-shadow: 0 0 10px #ff4444;
+}
+
+.status-dot.connected {
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+#statusText {
+    font-weight: 600;
+    color: #81d4ff;
+    font-size: 0.95em;
+}
+
+.contributors-link {
+    padding: 10px 20px;
+    background: rgba(129, 212, 255, 0.2);
+    border: 2px solid rgba(129, 212, 255, 0.6);
+    border-radius: 25px;
+    color: #81d4ff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.contributors-link:hover {
+    background: rgba(129, 212, 255, 0.4);
+    border-color: rgba(129, 212, 255, 0.9);
+    box-shadow: 0 0 15px rgba(30, 212, 255, 0.4);
+}
+
+/* ====== Dashboard Grid ====== */
+.dashboard {
+    margin-bottom: 40px;
+}
+
+.parameters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* ====== Parameter Cards ====== */
+.parameter-card {
+    background: linear-gradient(135deg, rgba(21, 101, 192, 0.5), rgba(30, 136, 229, 0.3));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(129, 212, 255, 0.5);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.parameter-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(129, 212, 255, 0.9);
+    box-shadow: 0 15px 45px rgba(30, 212, 255, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.parameter-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.1), transparent);
+    pointer-events: none;
+}
+
+.card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(100, 200, 255, 0.3);
+}
+
+.parameter-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.parameter-icon {
+    display: none;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Card Color Variants */
+.card-water {
+    border-left: 5px solid #00d4ff;
+}
+
+.card-tds {
+    border-left: 5px solid #64ff00;
+}
+
+.card-turbidity {
+    border-left: 5px solid #ffb000;
+}
+
+.card-temperature {
+    border-left: 5px solid #ff6b00;
+}
+
+.card-ph {
+    border-left: 5px solid #ff00ff;
+}
+
+.card-wqi {
+    border-left: 5px solid #00ffaa;
+}
+
+/* ====== Value Display ====== */
+.value-display {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    justify-content: center;
+}
+
+.value {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(30, 212, 255, 0.6);
+    font-variant-numeric: tabular-nums;
+}
+
+.unit {
+    font-size: 1em;
+    color: #81d4ff;
+    font-weight: 600;
+}
+
+/* ====== Gauge (Water Level) ====== */
+.gauge-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.gauge {
+    width: 150px;
+    height: 150px;
+    filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+}
+
+.gauge-background {
+    fill: none;
+    stroke: rgba(100, 200, 255, 0.2);
+    stroke-width: 8;
+}
+
+.gauge-progress {
+    fill: none;
+    stroke: url(#waterGradient);
+    stroke-width: 8;
+    stroke-dasharray: 565.48;
+    stroke-linecap: round;
+    transform-origin: center;
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset 0.5s ease;
+    filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.6));
+}
+
+.gauge-text {
+    font-size: 28px;
+    font-weight: 800;
+    text-anchor: middle;
+    dominant-baseline: central;
+    fill: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* ====== Progress Bar ====== */
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(129, 212, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(129, 212, 255, 0.5);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1ed4ff, #0099ff, #00b0ff);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(30, 212, 255, 0.7);
+    width: 0%;
+}
+
+/* ====== pH Scale ====== */
+.ph-scale {
+    width: 100%;
+    height: 25px;
+    background: linear-gradient(90deg, #ff1744, #ff9100, #ffff00, #00e676, #2979f3);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid rgba(129, 212, 255, 0.5);
+    position: relative;
+}
+
+.ph-bar {
+    height: 100%;
+    width: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-right: 3px solid #ffffff;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* ====== WQI Display ====== */
+.wqi-display {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.wqi-circle {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 170, 0.4));
+}
+
+.wqi-background {
+    fill: none;
+    stroke: rgba(100, 200, 255, 0.2);
+    stroke-width: 6;
+}
+
+.wqi-fill {
+    fill: none;
+    stroke: url(#wqiGradient);
+    stroke-width: 6;
+    stroke-dasharray: 314.16;
+    stroke-linecap: round;
+    transform-origin: center;
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset 0.5s ease;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.8));
+}
+
+.wqi-text {
+    font-size: 24px;
+    font-weight: 800;
+    text-anchor: middle;
+    dominant-baseline: central;
+    fill: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 170, 0.6);
+}
+
+.status-label {
+    font-size: 0.85em;
+    color: #64c8ff;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* ====== Suggestion Card ====== */
+.suggestion-card {
+    background: linear-gradient(135deg, rgba(21, 101, 192, 0.5), rgba(30, 136, 229, 0.3));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(129, 212, 255, 0.5);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    border-left: 5px solid #ffb300;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.suggestion-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255, 170, 0, 0.1), transparent);
+    pointer-events: none;
+}
+
+.suggestion-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(100, 200, 255, 0.3);
+}
+
+.suggestion-header h3 {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.suggestion-body {
+    position: relative;
+    z-index: 1;
+}
+
+#suggestionText {
+    font-size: 1em;
+    color: #e0f0ff;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* ====== Footer ====== */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #81d4ff;
+    font-size: 0.9em;
+    border-top: 2px solid rgba(129, 212, 255, 0.4);
+    margin-top: 30px;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+/* ====== Loading Spinner ====== */
+.loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+}
+
+.loading-spinner.show {
+    display: block;
+}
+
+.spinner {
+    border: 5px solid rgba(100, 200, 255, 0.2);
+    border-top: 5px solid #00d4ff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2em;
+    }
+
+    .subtitle {
+        font-size: 0.9em;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .parameters-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .value {
+        font-size: 2em;
+    }
+
+    .parameter-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 1.5em;
+    }
+
+    .value {
+        font-size: 1.8em;
+    }
+
+    .parameter-title {
+        font-size: 1.1em;
+    }
+
+    .suggestion-card {
+        padding: 20px;
+    }
+}
+
+/* ====== SVG Gradients ====== */
+svg {
+    --water-color-1: #00d4ff;
+    --water-color-2: #0099ff;
+    --water-color-3: #00ffff;
+    --wqi-color-1: #ff0000;
+    --wqi-color-2: #ffaa00;
+    --wqi-color-3: #00ff00;
+}
